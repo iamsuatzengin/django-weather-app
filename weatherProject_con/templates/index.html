@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <title>Weather App</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-light bg-warning">
+        <div class="container-fluid">
+          <a href="{% url 'index' %}">
+              <span class="navbar-brand mt-4 h1 text-center">Weather App</span>
+          </a>
+            
+        </div>
+    </nav>
+
+
+<div class="container">
+    <div class="row mt-5 pt-5">
+        <center>
+            <div class="col-md-6">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input class="input is-rounded form-contol rounded-5" type="text" placeholder="Search" name="city">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </center>
+    </div>
+    <div class="row mt-5 pt-5">
+        <center>
+        {% if city is not None %}
+            <div class="col-md-6">
+                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header text-center">
+                        <h1 class=" fw-bolder ms-5 mr-5 ps-5 pr-5"><span class="text-primary fw-bold">{{ city | capfirst }}</span></h1> 
+                    </div>
+                    <div class="card-body">
+                        <p class="card-title"><h3>Description: <span class="text-dark fw-bold">{{ data.description | capfirst }}</span></h3>
+                            <img src = 'http://openweathermap.org/img/w/{{data.icon}}.png'></p>
+                        <p class="card-text">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Temperature: <span class="text-danger fw-bold">{{ data.temp }}</span></li>
+                                <li class="list-group-item">Feels Like: <span class="text-danger fw-bold">{{ data.feels_like }}</span></li>
+                                <li class="list-group-item">Minimum Temperature: <span class="text-danger fw-bold">{{ data.temp_min }}</span></li>
+                                <li class="list-group-item">Maximum Temperature:<span class="text-danger fw-bold">{{ data.temp_max }}</span> </li>
+                                <li class="list-group-item">Humidity: <span class="text-danger fw-bold">{{ data.humidity }}</span></li>
+                                <li class="list-group-item">Wind Speed: <span class="text-danger fw-bold">{{ data.wind_speed }} m/s</span></li>            
+                                </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </center>
+    </div>
+</div>
+
+    
+</body>
+</html>
